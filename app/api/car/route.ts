@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
     const car = await db.car.create({
       data: {
-        UserId: userId,
+        userId: userId,
         ...data,
       },
     });

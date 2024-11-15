@@ -16,7 +16,7 @@ export default async function CarManagerPage() {
   }
   const car = await db.car.findMany({
     where: {
-        UserId: userId,
+        userId: userId,
     },
     orderBy: {
       createdAt: "desc",

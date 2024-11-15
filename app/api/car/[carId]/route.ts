@@ -15,17 +15,29 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const car = await db.car.update({
+    // Encuentra el coche primero
+    const car = await db.car.findFirst({
       where: {
         id: carId,
-        UserId: userId,
+        userId: userId,
+      },
+    });
+
+    if (!car) {
+      return new NextResponse("Car not found", { status: 404 });
+    }
+
+    // Actualiza el coche
+    const updatedCar = await db.car.update({
+      where: {
+        id: carId,
       },
       data: {
         isPublish: isPublish,
       },
     });
 
-    return NextResponse.json(car);
+    return NextResponse.json(updatedCar);
   } catch (error) {
     console.log("[CAR ID PATCH]", error);
     return new NextResponse("Internal Error", { status: 500 });
