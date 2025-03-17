@@ -92,9 +92,10 @@ renta-cars-app/
 
 ## Configuración Docker
 El proyecto incluye los siguientes archivos para Docker:
-[Dockerfile](./Dockerfile) - Configuración para construir la imagen de la aplicación  
-[docker-compose.yml](./docker-compose.yml) - Orquestación de servicios (app y base de datos)  
-[.dockerignore](./.dockerignore) - Archivos a excluir de la imagen  
+
+📄 Dockerfile - Configuración para construir la imagen de la aplicación  
+📄 docker-compose.yml - Orquestación de servicios (app y base de datos)  
+📄 .dockerignore - Archivos a excluir de la imagen  
 
 ## Modelos de datos
 
