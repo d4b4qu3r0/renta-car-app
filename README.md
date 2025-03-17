@@ -28,7 +28,24 @@ Renta Cars App es una plataforma web moderna desarrollada con Next.js para el al
 
 ## Estructura del Proyecto
 
-### Requisitos previos
+```
+renta-cars-app/
+├── app/ (Next.js App Router)
+│   ├── (auth)/ (Autenticación)
+│   ├── (routes)/
+│   │   ├── (home)/ (Rutas públicas)
+│   │   └── (dashboard)/ (Rutas protegidas)
+│   └── api/ (Endpoints de API)
+├── components/
+│   ├── Shared/ (Componentes compartidos)
+│   └── ui/ (Componentes de interfaz)
+├── hooks/ (React hooks personalizados)
+├── lib/ (Utilidades y configuraciones)
+├── prisma/ (ORM y schema de base de datos)
+└── public/ (Archivos estáticos)
+```
+
+## Requisitos previos
 - Node.js 18.x o superior
 - Docker y Docker Compose (para entorno containerizado)
 - PostgreSQL (si se ejecuta localmente)
@@ -75,13 +92,50 @@ Renta Cars App es una plataforma web moderna desarrollada con Next.js para el al
 
 ## Configuración Docker
 El proyecto incluye los siguientes archivos para Docker:
-- **Dockerfile** - Configuración para construir la imagen de la aplicación
-- **docker-compose.yml** - Orquestación de servicios (app y base de datos)
-- **.dockerignore** - Archivos a excluir de la imagen
+[Dockerfile](./Dockerfile) - Configuración para construir la imagen de la aplicación  
+[docker-compose.yml](./docker-compose.yml) - Orquestación de servicios (app y base de datos)  
+[.dockerignore](./.dockerignore) - Archivos a excluir de la imagen  
 
 ## Modelos de datos
-- **Car**
-- **Order**
+
+### Car
+```prisma
+model Car {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String   @db.Text
+  cv           String   @db.Text
+  transmission String   @db.Text
+  people       String   @db.Text
+  photo        String   @db.Text
+  priceDay     String   @db.Text
+  engine       String   @db.Text
+  type         String   @db.Text
+  isPublish    Boolean?
+  orders       Order[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+```
+
+### Order
+```prisma
+model Order {
+  id           String   @id @default(uuid())
+  carId        String   @db.Text
+  carName      String   @db.Text
+  userId       String   @db.Text
+  orderDate    DateTime @default(now())
+  orderEndDate DateTime @default(now())
+  status       String   @db.Text
+  totalAmount  String   @db.Text
+  car          Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@index([carId])
+  @@index([userId])
+}
+```
 
 ## Funcionalidades principales
 - **Catálogo de coches**: Visualización y filtrado de vehículos disponibles
