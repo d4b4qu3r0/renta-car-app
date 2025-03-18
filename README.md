@@ -56,7 +56,7 @@ renta-cars-app/
 
 1. Clonar el repositorio:
    ```sh
-   git clone <repo-url>
+   git clone [https://github.com/d4b4qu3r0/renta-car-app]
    cd renta-cars-app
    ```
 2. Instalar dependencias:
